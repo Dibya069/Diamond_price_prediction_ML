@@ -19,3 +19,25 @@ def save_obj(file_path, obj):
 
     except Exception as e:
         raise CustomException(e, sys)
+    
+## =============================================================================
+
+def evaluate_mdoel( x_train, y_train, x_test, y_test, models ):
+    try:
+        report = {}
+        
+        for i in range(len(models)):
+            model = list(models.values())[i]
+            ## train model
+            model.fit(x_train, y_train)
+
+            ## predict model
+            y_test_pred = model.predict(x_test)
+            test_mdoel_score = r2_score(y_test, y_test_pred)
+
+            report[list(models.keys())[i]] = test_mdoel_score
+        return report
+
+
+    except Exception as e:
+        raise CustomException(e, sys)
